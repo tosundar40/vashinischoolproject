@@ -263,6 +263,71 @@
             height: 100%;
             transition: width 0.5s ease;
         }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        /* Hamburger menu styles */
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: white;
+            border-radius: 9px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+
+        .hamburger span:nth-child(2),
+        .hamburger span:nth-child(3) {
+            top: 8px;
+        }
+
+        .hamburger span:nth-child(4) {
+            top: 16px;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            top: 8px;
+            width: 0%;
+            left: 50%;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .hamburger.open span:nth-child(4) {
+            top: 8px;
+            width: 0%;
+            left: 50%;
+        }
     </style>
 </head>
 
@@ -292,48 +357,84 @@
 
     <!-- Header -->
     <header
-        class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-6 shadow-2xl sticky top-0 z-50 border-b-4 border-yellow-400">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="text-white text-4xl font-bold font-comic animate-bounce-slow mb-4 md:mb-0">
-                <span class="animate-float inline-block">🌟</span>
-                Be Kind, Be Aware
-                <span class="animate-float inline-block" style="animation-delay: 0.5s;">🌈</span>
-            </div>
+        class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-4 lg:p-6 shadow-2xl sticky top-0 z-50 border-b-4 border-yellow-400">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <!-- Logo/Title -->
+                <div class="text-white text-2xl sm:text-3xl lg:text-4xl font-bold font-comic animate-bounce-slow">
+                    <span class="animate-float inline-block">🌟</span>
+                    <span class="hidden sm:inline">Be Kind, Be Aware</span>
+                    <span class="sm:hidden">Be Kind</span>
+                    <span class="animate-float inline-block" style="animation-delay: 0.5s;">🌈</span>
+                </div>
 
-            <div class="flex items-center space-x-4">
-
-
-                <nav class="flex flex-wrap justify-center md:justify-end">
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-2">
                     <a href="#home"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         🏠 Home
                     </a>
                     <a href="#comics"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         📖 Comics
                     </a>
                     <a href="#videos"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         🎥 Videos
                     </a>
                     <a href="#quiz"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         🧠 Quiz
                     </a>
                     <a href="#learn-more"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         📚 Learn More
                     </a>
                     <a href="#feedback"
-                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        class="text-white px-4 py-2 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle text-sm">
                         💬 Feedback
                     </a>
-                    <!-- Logout Button -->
-                    <button onclick="logout()"
-                        class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-comic font-bold border-3 border-white transition-all hover:scale-110 animate-wiggle">
-                        🚪 Logout
-                    </button>
                 </nav>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="lg:hidden">
+                    <div class="hamburger" onclick="toggleMobileMenu()" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu mt-4" id="mobileMenu">
+                <div class="flex flex-col space-y-2">
+                    <a href="#home"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        🏠 Home
+                    </a>
+                    <a href="#comics"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        📖 Comics
+                    </a>
+                    <a href="#videos"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        🎥 Videos
+                    </a>
+                    <a href="#quiz"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        🧠 Quiz
+                    </a>
+                    <a href="#learn-more"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        📚 Learn More
+                    </a>
+                    <a href="#feedback"
+                        class="text-white px-4 py-3 rounded-full border-2 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all text-center">
+                        💬 Feedback
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -1015,7 +1116,7 @@
             document.addEventListener('keydown', handleKeyPress);
         }
 
-           const quizData = [
+        const quizData = [
             {
                 question: "What's the best way to show empathy when a friend is upset?",
                 answers: [
@@ -1099,11 +1200,11 @@
         function showQuestion() {
             const question = quizData[currentQuestionIndex];
             const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
-            
+
             document.getElementById('progressFill').style.width = progress + '%';
             document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
             document.getElementById('totalQuestions').textContent = quizData.length;
-            
+
             const quizBody = document.getElementById('quizBody');
             quizBody.innerHTML = `
                 <div class="question-card">
@@ -1129,11 +1230,11 @@
 
         function selectAnswer(answerIndex) {
             if (selectedAnswer !== null) return;
-            
+
             selectedAnswer = answerIndex;
             const question = quizData[currentQuestionIndex];
             const isCorrect = answerIndex === question.correct;
-            
+
             if (isCorrect) {
                 score++;
                 document.getElementById(`answer-${answerIndex}`).classList.add('correct');
@@ -1141,11 +1242,11 @@
                 document.getElementById(`answer-${answerIndex}`).classList.add('incorrect');
                 document.getElementById(`answer-${question.correct}`).classList.add('correct');
             }
-            
+
             // Disable all answer buttons
             const answerBtns = document.querySelectorAll('.answer-btn');
             answerBtns.forEach(btn => btn.style.pointerEvents = 'none');
-            
+
             // Show explanation and next button
             document.getElementById('explanation').style.display = 'block';
             document.getElementById('nextBtn').style.display = 'inline-block';
@@ -1154,7 +1255,7 @@
         function nextQuestion() {
             currentQuestionIndex++;
             selectedAnswer = null;
-            
+
             if (currentQuestionIndex < quizData.length) {
                 showQuestion();
             } else {
@@ -1166,13 +1267,13 @@
             document.getElementById('quizHeader').style.display = 'none';
             document.getElementById('quizBody').style.display = 'none';
             document.getElementById('quizResults').style.display = 'block';
-            
+
             const percentage = Math.round((score / quizData.length) * 100);
             document.getElementById('scoreDisplay').innerHTML = `
                 <div class="text-4xl font-bold text-purple-800">Your Score: ${score}/${quizData.length}</div>
                 <div class="text-2xl text-purple-600">${percentage}%</div>
             `;
-            
+
             let message = '';
             if (percentage >= 80) {
                 message = "🌟 Excellent! You're a kindness champion! Your empathy and understanding shine bright.";
@@ -1183,7 +1284,7 @@
             } else {
                 message = "🌱 Keep learning! Empathy is a skill that grows with practice. You're on the right path!";
             }
-            
+
             document.getElementById('resultMessage').textContent = message;
         }
 
@@ -1193,12 +1294,29 @@
         }
 
         // Close popup when clicking outside
-        document.getElementById('quizPopup').addEventListener('click', function(e) {
+        document.getElementById('quizPopup').addEventListener('click', function (e) {
             if (e.target === this) {
                 closeQuiz();
             }
         });
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.getElementById('hamburger');
 
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const hamburger = document.getElementById('hamburger');
+
+                mobileMenu.classList.remove('active');
+                hamburger.classList.remove('open');
+            });
+        });
     </script>
 </body>
 
