@@ -152,6 +152,117 @@
         .glow-yellow {
             box-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
         }
+
+        .font-comic {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .glow {
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .quiz-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .quiz-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border: 3px solid #f59e0b;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .answer-btn {
+            background: linear-gradient(135deg, #ddd6fe, #c7d2fe);
+            border: 2px solid #8b5cf6;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .answer-btn:hover {
+            background: linear-gradient(135deg, #c4b5fd, #a5b4fc);
+            transform: translateY(-2px);
+        }
+
+        .answer-btn.correct {
+            background: linear-gradient(135deg, #bbf7d0, #86efac);
+            border-color: #10b981;
+        }
+
+        .answer-btn.incorrect {
+            background: linear-gradient(135deg, #fecaca, #fca5a5);
+            border-color: #ef4444;
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            height: 100%;
+            transition: width 0.5s ease;
+        }
     </style>
 </head>
 
@@ -204,6 +315,10 @@
                     <a href="#videos"
                         class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
                         🎥 Videos
+                    </a>
+                    <a href="#quiz"
+                        class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
+                        🧠 Quiz
                     </a>
                     <a href="#learn-more"
                         class="text-white mx-2 my-1 px-6 py-3 rounded-full border-3 border-white font-comic font-bold hover:bg-white hover:text-blue-500 transition-all hover:scale-110 animate-wiggle">
@@ -348,7 +463,97 @@
                 </div>
             </div>
         </section>
+        <!-- Videos Section -->
+        <section id="videos"
+            class="mb-16 bg-gradient-to-br from-red-100 to-pink-100 p-8 rounded-3xl border-4 border-red-400">
+            <h2 class="text-4xl font-bold font-comic text-center mb-8 animate-bounce-slow">
+                🎥 Amazing Learning Videos! 🎥
+            </h2>
 
+            <!-- Centered single video card -->
+            <div class="flex justify-center">
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-xl border-4 border-blue-300 card-hover glow max-w-md">
+                    <div
+                        class="h-48 bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-white text-2xl font-bold font-comic p-4">
+                        <div class="text-center animate-bounce-slow" style="animation-delay: 0.5s;">
+                            <div class="text-6xl mb-2">🧠</div>
+                            Understanding Different Minds
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-3 font-comic">Everyone Thinks Differently</h3>
+                        <p class="text-gray-700 mb-4">Discover how amazing it is that we all think and learn in
+                            different
+                            ways! 🧩</p>
+                        <div class="text-center">
+                            <button
+                                class="bg-blue-500 text-white px-6 py-3 rounded-full font-comic font-bold hover:bg-blue-600 transition-all animate-wiggle hover:scale-110"
+                                onclick="openVideo()">
+                                ▶️ Watch Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz"
+            class="mb-16 bg-gradient-to-br from-orange-100 to-yellow-100 p-8 rounded-3xl border-4 border-orange-400">
+            <h2 class="text-4xl font-bold font-comic text-center mb-8 text-orange-800 animate-bounce-slow">
+                🧠 Test Your Kindness Knowledge! 🧠
+            </h2>
+
+            <div class="flex justify-center">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-xl border-4 border-purple-300 card-hover glow cursor-pointer max-w-md"
+                    onclick="openQuiz()">
+                    <div
+                        class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-bold font-comic p-4">
+                        <div class="text-center animate-bounce-slow">
+                            <div class="text-6xl mb-2">🤝</div>
+                            Empathy & Inclusion Quiz
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-3 font-comic">How Empathetic Are You?</h3>
+                        <p class="text-gray-700 mb-4">Take our fun interactive quiz to test your understanding of
+                            kindness and inclusion! 🌟</p>
+                        <div class="bg-orange-100 p-3 rounded-xl border-2 border-orange-300 text-center">
+                            <span class="font-comic font-bold text-orange-800">👆 Click to Start Quiz! 👆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="quizPopup" class="quiz-popup">
+            <div class="quiz-content">
+                <button class="close-btn" onclick="closeQuiz()">&times;</button>
+                <div id="quizHeader" class="text-center mb-6">
+                    <h2 class="text-3xl font-bold font-comic text-purple-800 mb-4">🌟 Empathy & Inclusion Quiz 🌟</h2>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="font-comic text-lg">Question <span id="currentQuestion">1</span> of <span
+                            id="totalQuestions">5</span></p>
+                </div>
+
+                <div id="quizBody">
+                    <!-- Quiz questions will be inserted here -->
+                </div>
+
+                <div id="quizResults" class="text-center" style="display: none;">
+                    <div class="text-6xl mb-4">🎉</div>
+                    <h3 class="text-2xl font-bold font-comic text-purple-800 mb-4">Quiz Complete!</h3>
+                    <div id="scoreDisplay" class="text-xl font-comic mb-4"></div>
+                    <div id="resultMessage" class="text-lg text-gray-700 mb-6"></div>
+                    <button onclick="restartQuiz()"
+                        class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full font-comic font-bold hover:from-purple-600 hover:to-pink-600 transition-all">
+                        Take Quiz Again 🔄
+                    </button>
+                </div>
+            </div>
+        </div>
         <!-- Videos Section -->
         <section id="videos"
             class="mb-16 bg-gradient-to-br from-red-100 to-pink-100 p-8 rounded-3xl border-4 border-red-400">
@@ -809,6 +1014,190 @@
             };
             document.addEventListener('keydown', handleKeyPress);
         }
+
+           const quizData = [
+            {
+                question: "What's the best way to show empathy when a friend is upset?",
+                answers: [
+                    "Tell them to 'get over it' quickly",
+                    "Listen actively and acknowledge their feelings",
+                    "Immediately give advice to fix their problem",
+                    "Change the subject to something happier"
+                ],
+                correct: 1,
+                explanation: "Active listening and acknowledging feelings shows genuine empathy and makes people feel heard and understood."
+            },
+            {
+                question: "How can you make someone from a different culture feel included?",
+                answers: [
+                    "Ask respectful questions about their background",
+                    "Assume they want to be treated exactly like everyone else",
+                    "Point out how different they are from others",
+                    "Ignore their cultural background completely"
+                ],
+                correct: 0,
+                explanation: "Showing genuine interest through respectful questions demonstrates care while honoring their unique background."
+            },
+            {
+                question: "What's an example of inclusive language?",
+                answers: [
+                    "Using 'guys' to address a mixed group",
+                    "Saying 'everyone' or 'team' instead of 'guys'",
+                    "Using phrases like 'that's so weird'",
+                    "Making assumptions about people's abilities"
+                ],
+                correct: 1,
+                explanation: "Gender-neutral terms like 'everyone' or 'team' ensure all people feel included and respected."
+            },
+            {
+                question: "How should you respond when you witness bullying?",
+                answers: [
+                    "Join in to fit in with the group",
+                    "Ignore it and hope it stops",
+                    "Safely intervene or get help from an adult",
+                    "Record it to share on social media"
+                ],
+                correct: 2,
+                explanation: "Taking safe action to help shows courage and protects others from harm."
+            },
+            {
+                question: "What's the most important quality for building inclusive friendships?",
+                answers: [
+                    "Only befriending people who are exactly like you",
+                    "Being open-minded and celebrating differences",
+                    "Trying to change others to match your interests",
+                    "Avoiding people who seem different"
+                ],
+                correct: 1,
+                explanation: "Open-mindedness and celebrating differences creates rich, meaningful friendships and builds understanding."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        function openQuiz() {
+            document.getElementById('quizPopup').style.display = 'flex';
+            resetQuiz();
+            showQuestion();
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizPopup').style.display = 'none';
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('quizHeader').style.display = 'block';
+            document.getElementById('quizBody').style.display = 'block';
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('totalQuestions').textContent = quizData.length;
+            
+            const quizBody = document.getElementById('quizBody');
+            quizBody.innerHTML = `
+                <div class="question-card">
+                    <h3 class="text-xl font-bold font-comic text-orange-800 mb-4">${question.question}</h3>
+                    <div id="answers">
+                        ${question.answers.map((answer, index) => `
+                            <button class="answer-btn" onclick="selectAnswer(${index})" id="answer-${index}">
+                                ${answer}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="explanation" style="display: none;" class="mt-4 p-4 bg-blue-100 rounded-lg border-2 border-blue-300">
+                        <p class="font-comic text-blue-800"><strong>💡 Explanation:</strong> ${question.explanation}</p>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button id="nextBtn" onclick="nextQuestion()" style="display: none;" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-3 rounded-full font-comic font-bold hover:from-green-600 hover:to-blue-600 transition-all">
+                            ${currentQuestionIndex === quizData.length - 1 ? 'See Results! 🎉' : 'Next Question ➡️'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(answerIndex) {
+            if (selectedAnswer !== null) return;
+            
+            selectedAnswer = answerIndex;
+            const question = quizData[currentQuestionIndex];
+            const isCorrect = answerIndex === question.correct;
+            
+            if (isCorrect) {
+                score++;
+                document.getElementById(`answer-${answerIndex}`).classList.add('correct');
+            } else {
+                document.getElementById(`answer-${answerIndex}`).classList.add('incorrect');
+                document.getElementById(`answer-${question.correct}`).classList.add('correct');
+            }
+            
+            // Disable all answer buttons
+            const answerBtns = document.querySelectorAll('.answer-btn');
+            answerBtns.forEach(btn => btn.style.pointerEvents = 'none');
+            
+            // Show explanation and next button
+            document.getElementById('explanation').style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            selectedAnswer = null;
+            
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quizHeader').style.display = 'none';
+            document.getElementById('quizBody').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreDisplay').innerHTML = `
+                <div class="text-4xl font-bold text-purple-800">Your Score: ${score}/${quizData.length}</div>
+                <div class="text-2xl text-purple-600">${percentage}%</div>
+            `;
+            
+            let message = '';
+            if (percentage >= 80) {
+                message = "🌟 Excellent! You're a kindness champion! Your empathy and understanding shine bright.";
+            } else if (percentage >= 60) {
+                message = "👍 Great job! You have a good understanding of empathy and inclusion. Keep practicing!";
+            } else if (percentage >= 40) {
+                message = "💪 Good effort! There's room to grow in your empathy journey. Every step counts!";
+            } else {
+                message = "🌱 Keep learning! Empathy is a skill that grows with practice. You're on the right path!";
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            resetQuiz();
+            showQuestion();
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('quizPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQuiz();
+            }
+        });
 
     </script>
 </body>

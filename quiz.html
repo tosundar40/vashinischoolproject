@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Empathy and Inclusion Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 95vh;
+            overflow-y: auto;
+            animation: slideIn 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .question-counter {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .question-image {
+            width: 100%;
+            max-width: 280px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .question-image:hover {
+            transform: scale(1.02);
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .options li {
+            margin: 0;
+        }
+        .options button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            font-weight: 500;
+        }
+        .options button:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        .options button:active {
+            transform: translateY(0);
+        }
+        .feedback {
+            font-size: 1.1em;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
+            line-height: 1.5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .correct-feedback {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 2px solid #28a745;
+            border-left: 6px solid #28a745;
+        }
+        .incorrect-feedback {
+            background: linear-gradient(135deg, #f8d7da, #f1b0b7);
+            color: #721c24;
+            border: 2px solid #dc3545;
+            border-left: 6px solid #dc3545;
+        }
+        .final-score {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            border: 3px solid #38b2ac;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            animation: pulse 1s ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .score-text {
+            font-size: 2em;
+            color: #2c7a7b;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .score-message {
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 25px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.3);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(237, 137, 54, 0.4);
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .stat-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+        }
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .stat-label {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            .quiz-container {
+                padding: 15px;
+                margin: 5px;
+                max-height: 98vh;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+            }
+            .question {
+                font-size: 1.2em;
+            }
+            .options button {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+            .feedback {
+                font-size: 1em;
+                padding: 15px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>🤝 Empathy & Inclusion Quiz</h1>
+        <div id="quiz-content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div class="question-counter" id="counter"></div>
+            <div id="quiz"></div>
+            <div id="feedback" class="feedback"></div>
+        </div>
+        <div id="results" class="hidden"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "How would you feel if you saw someone sitting alone during lunch?",
+                image: "Quiz1.png",
+                options: [
+                    { text: "😊 Happy - they get peace and quiet", correct: false, explanation: "While some people enjoy solitude, it's important to check if they're okay or might want company." },
+                    { text: "😢 Concerned - they might feel lonely", correct: true, explanation: "Great empathy! Recognizing when someone might need support shows emotional intelligence." },
+                    { text: "😐 Indifferent - it's not my problem", correct: false, explanation: "Caring about others' wellbeing is an important part of building inclusive communities." }
+                ]
+            },
+            {
+                question: "What should you do if you see someone being teased?",
+                image: "https://via.placeholder.com/300x200/FF6B6B/white?text=Stop+Bullying",
+                options: [
+                    { text: "👀 Watch but don't get involved", correct: false, explanation: "Being a bystander can make the situation worse. Taking action helps protect others." },
+                    { text: "🗣️ Speak up or get help from an adult", correct: true, explanation: "Perfect! Standing up for others and seeking help when needed shows courage and care." },
+                    { text: "😂 Join in if it seems harmless", correct: false, explanation: "Even 'harmless' teasing can hurt deeply. Everyone deserves to feel safe and respected." }
+                ]
+            },
+            {
+                question: "How can you make a new student feel welcome?",
+                image: "https://via.placeholder.com/300x200/4ECDC4/white?text=Welcome+New+Friends",
+                options: [
+                    { text: "🙋 Introduce yourself and offer to show them around", correct: true, explanation: "Wonderful! Taking initiative to welcome newcomers helps create an inclusive environment." },
+                    { text: "🚶 Wait for them to approach you first", correct: false, explanation: "New students might be too shy to make the first move. Your friendly gesture can make their day!" },
+                    { text: "😐 Let the teacher handle introductions", correct: false, explanation: "While teachers help, peer connections are equally important for feeling included." }
+                ]
+            },
+            {
+                question: "A classmate has different cultural traditions. How do you respond?",
+                image: "https://via.placeholder.com/300x200/9B59B6/white?text=Cultural+Diversity",
+                options: [
+                    { text: "🤔 Ask respectful questions to learn more", correct: true, explanation: "Excellent! Showing genuine curiosity about others' cultures builds understanding and friendship." },
+                    { text: "😬 Avoid them because they're 'different'", correct: false, explanation: "Differences make our world richer! Avoiding others misses opportunities for amazing friendships." },
+                    { text: "😒 Make jokes about their traditions", correct: false, explanation: "Cultural traditions are deeply meaningful. Respect and kindness should always come first." }
+                ]
+            },
+            {
+                question: "Someone in your group has trouble with the same subject you excel in. What do you do?",
+                image: "https://via.placeholder.com/300x200/F39C12/white?text=Helping+Others",
+                options: [
+                    { text: "📚 Offer to help them study or understand", correct: true, explanation: "Amazing! Sharing your knowledge helps others grow and strengthens your own understanding too." },
+                    { text: "🏃 Do your own work and let them figure it out", correct: false, explanation: "We all have different strengths. Helping each other creates a supportive learning environment." },
+                    { text: "😏 Feel superior because you're better at it", correct: false, explanation: "Everyone has unique talents. Humility and helpfulness build better relationships than pride." }
+                ]
+            },
+            {
+                question: "You notice someone seems upset but hasn't said anything. What's your approach?",
+                image: "https://via.placeholder.com/300x200/E74C3C/white?text=Emotional+Support",
+                options: [
+                    { text: "🤗 Gently ask if they're okay and if you can help", correct: true, explanation: "Perfect empathy! Checking in on others shows you care and can provide much-needed support." },
+                    { text: "🤷 Assume they'll talk when they're ready", correct: false, explanation: "While respecting boundaries is important, a caring check-in can be incredibly meaningful." },
+                    { text: "📱 Tell others about it to get advice", correct: false, explanation: "Respect their privacy! Direct, caring conversation is better than discussing their situation with others." }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+        let startTime = Date.now();
+
+        function updateProgress() {
+            const progress = (currentQuestion / quizData.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('counter').textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+        }
+
+        function loadQuiz() {
+            const quiz = document.getElementById('quiz');
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = '';
+
+            if (currentQuestion < quizData.length) {
+                updateProgress();
+                const questionData = quizData[currentQuestion];
+                quiz.innerHTML = `
+                    <div class="question">${questionData.question}</div>
+                   
+                    <ul class="options">
+                        ${questionData.options.map((option, index) => `
+                            <li>
+                                <button onclick="selectOption(${index})">${option.text}</button>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        function selectOption(index) {
+            const questionData = quizData[currentQuestion];
+            const selectedOption = questionData.options[index];
+            const feedback = document.getElementById('feedback');
+            
+            answers.push({
+                question: questionData.question,
+                selected: selectedOption.text,
+                correct: selectedOption.correct,
+                explanation: selectedOption.explanation
+            });
+
+            if (selectedOption.correct) {
+                score++;
+                feedback.innerHTML = `<div class="correct-feedback">✅ ${selectedOption.explanation}</div>`;
+            } else {
+                const correctAnswer = questionData.options.find(opt => opt.correct);
+                feedback.innerHTML = `<div class="incorrect-feedback">❌ ${selectedOption.explanation}<br><br><strong>Better choice:</strong> ${correctAnswer.text}<br>${correctAnswer.explanation}</div>`;
+            }
+
+            // Disable all buttons
+            const buttons = document.querySelectorAll('.options button');
+            buttons.forEach(btn => btn.disabled = true);
+
+            currentQuestion++;
+            setTimeout(loadQuiz, 3000);
+        }
+
+        function showResults() {
+            const timeTaken = Math.round((Date.now() - startTime) / 1000);
+            const percentage = Math.round((score / quizData.length) * 100);
+            let message = "";
+            let emoji = "";
+
+            if (percentage >= 90) {
+                message = "Outstanding! You're an empathy champion! 🏆";
+                emoji = "🌟";
+            } else if (percentage >= 70) {
+                message = "Great job! You show strong empathy and inclusion skills! 👏";
+                emoji = "😊";
+            } else if (percentage >= 50) {
+                message = "Good effort! You're developing your empathy skills! 💪";
+                emoji = "🌱";
+            } else {
+                message = "Keep learning! Every step toward empathy makes a difference! 🤗";
+                emoji = "📚";
+            }
+
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').innerHTML = `
+                <div class="final-score">
+                    <div class="score-text">${emoji} ${score}/${quizData.length} (${percentage}%)</div>
+                    <div class="score-message">${message}</div>
+                    
+                    <div class="summary-stats">
+                        <div class="stat-box">
+                            <div class="stat-number">${score}</div>
+                            <div class="stat-label">Correct Answers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${percentage}%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${timeTaken}s</div>
+                            <div class="stat-label">Time Taken</div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="restartQuiz()">
+                            🔄 Take Quiz Again
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDetailedResults()">
+                            📊 View Detailed Results
+                        </button>
+                        <button class="btn btn-primary" onclick="shuffleAndRestart()">
+                            🎲 Try Shuffled Questions
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            startTime = Date.now();
+            document.getElementById('quiz-content').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            loadQuiz();
+        }
+
+        function shuffleAndRestart() {
+            // Shuffle the quiz questions
+            for (let i = quizData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [quizData[i], quizData[j]] = [quizData[j], quizData[i]];
+            }
+            restartQuiz();
+        }
+
+        function showDetailedResults() {
+            let detailsHTML = '<div style="text-align: left; padding: 20px; background: #f8f9fa; border-radius: 15px; margin: 15px 0; border: 2px solid #e9ecef;">';
+            detailsHTML += '<h3 style="text-align: center; color: #4a5568; margin-bottom: 20px;">📋 Detailed Results</h3>';
+            
+            answers.forEach((answer, index) => {
+                const icon = answer.correct ? '✅' : '❌';
+                const bgColor = answer.correct ? '#e8f5e8' : '#ffe8e8';
+                const borderColor = answer.correct ? '#4CAF50' : '#f44336';
+                detailsHTML += `
+                    <div style="background: ${bgColor}; padding: 15px; margin: 10px 0; border-radius: 10px; border-left: 4px solid ${borderColor}; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <strong style="font-size: 1.1em; color: #2d3748;">${icon} Question ${index + 1}:</strong><br>
+                        <span style="color: #4a5568; margin: 8px 0; display: block;">${answer.question}</span>
+                        <strong style="color: #2d3748;">Your answer:</strong> <span style="color: #666;">${answer.selected}</span><br><br>
+                        <em style="color: #555; line-height: 1.4; font-style: normal; background: rgba(255,255,255,0.7); padding: 8px; border-radius: 6px; display: block; margin-top: 8px;">${answer.explanation}</em>
+                    </div>
+                `;
+            });
+            
+            detailsHTML += '</div>';
+            detailsHTML += `
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showResults()">
+                        ← Back to Summary
+                    </button>
+                    <button class="btn btn-secondary" onclick="restartQuiz()">
+                        🔄 Try Again
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('results').innerHTML = detailsHTML;
+        }
+
+        // Initialize the quiz
+        loadQuiz();
+    </script>
+</body>
+</html>
